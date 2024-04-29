@@ -37,7 +37,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'django_extensions',
+    "tinymce",
     "create_blog",
+    "posts",
 ]
 
 MIDDLEWARE = [
@@ -129,6 +132,13 @@ MEDIA_ROOT = BASE_DIR / 'media'
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
+
+TINYMCE_DEFAULT_CONFIG = {
+    'plugins': 'media, image', 
+    #'toolbar': 'media, image',  
+    'width': '100%',
+    'height': 360, 
+}
 
 
 # Default primary key field type

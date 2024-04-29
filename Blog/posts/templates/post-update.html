@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Post</title>
+    <script src="https://cdn.tiny.cloud/1/seh5987t0k8e81pj204tj52xt6gyivbxb7fz5ckmb3e6cr9h/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            tinymce.init({
+                selector: '#id_content',
+                plugins: 'advlist autolink lists link image charmap print preview anchor media',
+                toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright | bullist numlist outdent indent | removeformat | link image',
+                height: 300
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Update Post</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Update</button>
+    </form>
+</body>
+</html>

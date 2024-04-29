@@ -12,10 +12,27 @@
         {% csrf_token %}
         <input type="submit" value="Delete Blog" name="delete_blog" onclick="return confirm('Are you sure you want to delete this blog?')">
     </form>
-    <h2>Future Posts</h2>
+    <a href="{% url 'blog_update' pk=blog.pk %}">Update Blog</a>
+    <h2>Posts</h2>
     <ul>
-   
+        {% for post in posts %}
+            <li>
+                <h3>
+                <a href="{% url 'posts:post_detail' id_blog=blog.id id_post=post.id %}">
+                    {{ post.title }}
+                </a> 
+                </h3> 
+                
+            </li>
+        {% empty %}
+            <li>No posts available.</li>
+        {% endfor %}
+        <h3>
+            <a href="{% url 'posts:create_post' id_blog=blog.id %}">
+               Add Post
+            </a> 
+            </h3> 
     </ul>
-    <a href="{% url 'blog_update' pk=blog.pk %}"> Update Blog </a>
+
 </body>
 </html>

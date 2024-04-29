@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import BlogForm
 from .models import Blog
-
+from posts.models import Post
 
 def create_blog(request):
     if request.method == 'POST':
@@ -19,11 +19,11 @@ def blogs_list(request):
 
 def blog_detail(request, pk):
      blog = get_object_or_404(Blog, pk=pk)
-
+     posts = Post.objects.filter(blog=blog)
      if request.method == 'POST' and 'delete_blog' in request.POST:
         blog.delete()
         return redirect('blogs_list') 
-     return render(request, 'blog-detail.html', {'blog': blog})
+     return render(request, 'blog-detail.html', {'blog': blog, 'posts': posts})
 
 def blog_update(request, pk):
     blog = get_object_or_404(Blog, pk=pk)
