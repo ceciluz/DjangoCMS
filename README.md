@@ -2,7 +2,8 @@
 
 
 This Django project is designed to provide a platform for blogging. It includes features for creating blogs, making posts, managing user accounts, and commenting on posts.
-
+## Video 
+https://youtu.be/ry_6I7X5kv4
 ## Installation
 
 1. **Clone the Repository:**
