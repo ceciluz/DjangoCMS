@@ -15,10 +15,34 @@
         <button type="submit" name="delete_post">Delete Post</button>
     </form>
     <a href="{% url 'posts:post_update' id_blog=post.blog.id id_post=post.id %}">Update Post</a>
-    <h2>Comments</h2>
-   
+      
     <h2>Add a Comment</h2>
-   
+    <form method="POST">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <button type="submit">Add Comment</button>
+    </form>
+    <h2>Comments</h2>
+{% if comments %}
+<ul>
+    {% for comment in comments %}
+    <li>
+        {{ comment.text }} - {{ comment.user.username }}
+       
+        {% if comment.user == request.user or request.user == post.blog.author or request.user.is_superuser %}
+            <form method="post" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                <button type="submit" name="edit_comment">Edit</button>
+                <button type="submit" name="delete_comment">Delete</button>
+            </form>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No comments yet.</p>
+{% endif %}
 </body>
 
 </html>
