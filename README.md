@@ -1,5 +1,5 @@
 # DjangoCMS
-
+## Go to the newest branch 'front-end'
 
 This Django project is designed to provide a platform for blogging. It includes features for creating blogs, making posts, managing user accounts, and commenting on posts.
 ## Video 
