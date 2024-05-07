@@ -1,38 +1,51 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ blog.title }}</title>
+    <title>Blog Detail</title>
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
 </head>
 <body>
-    <h1>{{ blog.title }}</h1>
-    <p>{{ blog.description }}</p>
-    <form method="post" style="display: inline;">
-        {% csrf_token %}
-        <input type="submit" value="Delete Blog" name="delete_blog" onclick="return confirm('Are you sure you want to delete this blog?')">
-    </form>
-    <a href="{% url 'blog_update' pk=blog.pk %}">Update Blog</a>
-    <h2>Posts</h2>
-    <ul>
+    <nav class="navbar">
+        <ul class="nav-list">
+            {% if user == blog.author %}
+                <li><a href="{% url 'posts:create_post' id_blog=blog.id %}">+Add Post</a></li>     
+            {% endif %}
+                <li><a href="/create-blog">+ New Blog</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="/accounts/logout/">LOGOUT</a></li>
+            {% else %}
+                <li><a href="/accounts/login/">LOGIN</a></li>
+                <li><a href="/register/">SIGN UP</a></li>
+            {% endif %}
+            
+        </ul>
+    </nav>
+    <div class="container">
+        <h1 class="blog-title"><a href="{% url 'blog_detail' pk=blog.pk %}">{{ blog.title }}</a></h1>
+        <p>By {{ blog.author }}</p>
         {% for post in posts %}
-            <li>
-                <h3>
-                <a href="{% url 'posts:post_detail' id_blog=blog.id id_post=post.id %}">
-                    {{ post.title }}
-                </a> 
-                </h3> 
-                
-            </li>
+            <div class="post">
+                <h2 class="post-title">
+                    <a href="{% url 'posts:post_detail' id_blog=blog.id id_post=post.id  %}">{{ post.title }}</a>
+                </h2>
+                <p> By {{ post.author }} on {{ post.created_at }}</p>
+                <div class="post-content">
+                    {{ post.content | safe }} 
+                </div>
+                <div class="comment-section">
+                    <p class="comment-count">
+                        <a href="{% url 'posts:post_detail' id_blog=blog.id id_post=post.id  %}">
+                        {{ post.comments.count }} Comments</p>
+                    </a>
+                </div>
+            </div>
         {% empty %}
-            <li>No posts available.</li>
+            <p>No posts found.</p>     
         {% endfor %}
-        <h3>
-            <a href="{% url 'posts:create_post' id_blog=blog.id %}">
-               Add Post
-            </a> 
-            </h3> 
-    </ul>
-
+       
+    </div>
 </body>
 </html>

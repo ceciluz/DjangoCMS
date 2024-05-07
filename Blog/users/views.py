@@ -18,20 +18,24 @@ def register(request):
     else:
         form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form})
-
+    
 def user_login(request):
-   if request.method == 'POST':
-        form = LoginForm(request, request.POST)
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('users:profile')  
-   else:
+                next_url = request.POST.get('next')
+                if next_url:
+                    return redirect(next_url)
+                else:
+                    return redirect('home')
+    else:
         form = LoginForm()
-        return render(request, 'users/login.html', {'form': form})
+    return render(request, 'users/login.html', {'form': form})
 
 def user_logout(request):
      if request.user.is_authenticated:

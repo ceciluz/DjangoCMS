@@ -1,0 +1,109 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.post-title a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.blog-title a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.comment-count a{
+    text-decoration: none;
+    color: inherit;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.post {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.post-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.post-content {
+    color: #666;
+    line-height: 1.6;
+}
+
+.post-content img {
+    max-width: 100%;
+    height: auto; 
+    display: block; 
+    margin-bottom: 15px; 
+}
+
+.comment-section {
+    margin-top: 30px;
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+}
+
+.comment-count {
+    color: #007bff;
+    font-weight: bold;
+}
+
+
+.navbar {
+    background-color: transparent;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px;
+    z-index: 1000;
+}
+
+.nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: right;
+}
+
+.nav-list li {
+    display: inline-block;
+    margin-right: 25px;
+}
+
+.nav-list li a {
+    color: #ffd000;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.nav-list li a:hover {
+    color: #ffd700;
+}

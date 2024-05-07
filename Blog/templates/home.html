@@ -9,13 +9,27 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <div class="container">
-        <h1>Blog Service</h1>
-        <p>Welcome to our blog service! Here you can read interesting articles on a variety of topics.</p>
-        <p>Whether you're looking for useful information, inspiration, or entertainment, you've come to the right place.</p>
-        <p>Check out our latest articles and stay up to date with the latest news!</p>
-        <a href="/create-blog" class="button">Create Blog</a>
-        <a href="/blogs-list" class="button">View Blogs</a>
-    </div>
+    <nav class="navbar">
+        <ul class="nav-list">
+            {% if user.is_authenticated %}
+                <li><a href="accounts/logout">LOGOUT</a></li>
+            {% else %}
+                <li><a href="/accounts/login/">LOGIN</a></li>
+                <li><a href="/register/">SIGN UP</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    <section class="layout">        
+        <div class="container-home">
+            <h1 class="title"> Welcome to BlogWise</h1>
+                <a href="/create-blog" class="button">Create Blog</a>
+            {% if user.is_authenticated %}
+                <a href="/blogs-list" class="button">My Blogs</a>
+            {% endif %}
+        </div>
+    </section>
+    <section class="image">
+            <img src="https://mailrelay.com/wp-content/uploads/2017/04/video-tutoriales-sobre-email-marketing.jpg" alt="">
+    </section>
 </body>
 </html>

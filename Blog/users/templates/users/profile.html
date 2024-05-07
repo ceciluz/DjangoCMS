@@ -4,22 +4,158 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-  
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .profile-info {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-info img {
+            max-width: 300px;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .blog-list {
+            margin-top: 30px;
+        }
+
+        .blog-item {
+            background-color: #fff;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .blog-item h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .blog-item p {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .blog-item a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .blog-item a:hover {
+            text-decoration: underline;
+        }
+              
+      .navbar {
+          background-color: transparent;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          padding: 15px;
+          z-index: 1000;
+      }
+
+      .nav-list {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          text-align: right;
+      }
+
+      .nav-list li {
+          display: inline-block;
+          margin-right: 25px;
+      }
+
+      .nav-list li a {
+          color: #ffd000;
+          text-decoration: none;
+          font-family: 'Montserrat', sans-serif;
+          font-weight: bold;
+          transition: color 0.3s ease;
+      }
+
+      .nav-list li a:hover {
+          color: #ffd700;
+      }
+    </style>
 </head>
 <body>
+    <nav class="navbar">
+        <ul class="nav-list">
+                <li><a href="/create-blog">+ New Blog </a></li>
+                <li><a href="/accounts/logout/">LOGOUT</a></li>
+        </ul>
+    </nav>
     <h1>User Profile</h1>
-    <h2>{{ user.username }}</h2>
-    <img src="{{ user.profile.image.url }}" alt="Profile Image" style="max-width: 300px; height: auto;">
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <fieldset class="form-group">
-          <legend class="border-bottom mb-4">Profile Info</legend>
-          {{ u_form }}
-          {{ p_form}}
-        </fieldset>
-        <div class="form-group">
-          <button class="btn btn-outline-info" type="submit">Update</button>
-        </div>
-      </form>
+    <div class="profile-info">
+        <h2>{{ user.username }}</h2>
+        <img src="{{ user.profile.image.url }}" alt="Profile Image" style="max-width: 300px; height: auto;">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Profile Info</legend>
+                {{ u_form }}
+                {{ p_form }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Update</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="blog-list">
+        <h2>Associated Blogs</h2>
+        {% for blog in user.blogs.all %}
+            <div class="blog-item">
+                <h3><a href="{% url 'blog_detail' pk=blog.pk %}">{{ blog.title }}</a></h3>
+                <p>{{ blog.description }}</p>
+                <p>Created at {{ blog.created_at }}</p>
+            </div>
+        {% empty %}
+            <p>No blogs associated with this user.</p>
+        {% endfor %}
+    </div>
 </body>
 </html>

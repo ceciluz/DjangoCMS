@@ -3,20 +3,73 @@ body {
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
+    display: flex;
+    height: 100vh; 
+    margin-left: 20px; 
 }
 
-.container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.layout{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    justify-content: center;
 }
+
+.navbar {
+    background-color: transparent;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px;
+    z-index: 1000;
+}
+
+.nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: right;
+}
+
+.nav-list li {
+    display: inline-block;
+    margin-right: 25px;
+}
+
+.nav-list li a {
+    color: #ffd000;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.nav-list li a:hover {
+    color: #ffd700;
+}
+
+
+.image {
+    position: fixed; 
+    top: 50%;
+    right: 0; 
+    transform: translateY(-50%); 
+    max-width: 100%; 
+    height: auto; 
+}
+
+img {
+    border-radius: 5%;
+}
+
+
 
 h1 {
-    text-align: center;
     color: #333;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 36px;
 }
 
 p {
@@ -31,6 +84,7 @@ p {
     color: #fff;
     text-decoration: none;
     border-radius: 5px;
+    margin-top: 20px; /* Adiciona margem acima do botão */
 }
 
 .button:hover {

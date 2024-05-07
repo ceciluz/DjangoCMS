@@ -1,48 +1,73 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ post.title }}</title>
+    <link rel="stylesheet" href="{% static 'css/post.css' %}">
 </head>
 <body>
-    <h1>{{ post.title }}</h1>
-    <p>{{ post.created_at }}</p>
-    <p>{{ post.content | safe }}</p>
+    <div class="container">
+        <div class="blog-title">
+            <a href="{% url 'blog_detail' pk=post.blog.pk %}">{{ post.blog.title }}</a>
+        </div>
+        <h1>{{ post.title }}</h1>
+        <p>{{ post.created_at }}</p>
+        <div class="post">
+            <div class="post-content">
+                {{ post.content | safe }}
+            </div>
+        </div>
 
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit" name="delete_post">Delete Post</button>
-    </form>
-    <a href="{% url 'posts:post_update' id_blog=post.blog.id id_post=post.id %}">Update Post</a>
-      
-    <h2>Add a Comment</h2>
-    <form method="POST">
-        {% csrf_token %}
-        {{ comment_form.as_p }}
-        <button type="submit">Add Comment</button>
-    </form>
-    <h2>Comments</h2>
-{% if comments %}
-<ul>
-    {% for comment in comments %}
-    <li>
-        {{ comment.text }} - {{ comment.user.username }}
-       
-        {% if comment.user == request.user or request.user == post.blog.author or request.user.is_superuser %}
-            <form method="post" style="display: inline;">
+        {% if user == post.author or request.user.is_superuser %}
+        <div class="action-buttons">
+            <form method="post">
                 {% csrf_token %}
-                <input type="hidden" name="comment_id" value="{{ comment.id }}">
-                <button type="submit" name="edit_comment">Edit</button>
-                <button type="submit" name="delete_comment">Delete</button>
+                <button type="submit" name="delete_post">Delete Post</button>
             </form>
-        {% endif %}
-    </li>
-    {% endfor %}
-</ul>
-{% else %}
-<p>No comments yet.</p>
-{% endif %}
-</body>
+            <a href="{% url 'posts:post_update' id_blog=post.blog.id id_post=post.id %}">
+                <button type="button">Update Post</button>
+            </a>
+        </div>
+    {% endif %}
+        
+    {% if user.is_authenticated %}
+        <h2>Add a Comment</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+            <button type="submit">Add Comment</button>
+        </form>
+    {% else %}
+        <div class="login-message">
+            <p>You must <a href="/accounts/login/">log in</a> to add a comment.</p>
+            <p>Don't have an account? <a href="/register/">Sign up here</a>.</p>
+        </div>
+    {% endif %}
 
+        <div class="comment-section">
+            <h2 class="comment-count">{{ post.comments.count }} Comments</h2>
+            {% if comments %}
+                <ul>
+                    {% for comment in comments %}
+                        <li>
+                            {{ comment.text }} - {{ comment.user.username }} on  {{ comment.created_at }}
+                            {% if comment.user == request.user or request.user == post.blog.author or request.user.is_superuser %}
+                                <form method="post" style="display: inline;">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                                    <button type="submit" name="edit_comment">Edit</button>
+                                    <button type="submit" name="delete_comment">Delete</button>
+                                </form>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No comments yet.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
 </html>

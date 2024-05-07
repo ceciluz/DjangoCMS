@@ -1,14 +1,17 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Post</title>
-    <script src="https://cdn.tiny.cloud/1/seh5987t0k8e81pj204tj52xt6gyivbxb7fz5ckmb3e6cr9h/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <link rel="stylesheet" href="{% static 'css/create-blog.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tinymce@5.10.3/skins/ui/oxide/skin.min.css">
+    <script src="https://cdn.tiny.cloud/1/seh5987t0k8e81pj204tj52xt6gyivbxb7fz5ckmb3e6cr9h/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             tinymce.init({
-                selector: '#id_content',
+                selector: 'textarea#id_content',
                 plugins: 'advlist autolink lists link image charmap print preview anchor media',
                 toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright | bullist numlist outdent indent | removeformat | link image',
                 height: 300
@@ -17,6 +20,14 @@
     </script>
 </head>
 <body>
+    <nav class="navbar">
+        <ul class="nav-list">
+            <li><a href="/create-blog">+ New Blog</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="/accounts/logout/">LOGOUT</a></li>
+            {% endif %}
+        </ul>
+    </nav>
     <h1>Update Post</h1>
     <form method="post">
         {% csrf_token %}

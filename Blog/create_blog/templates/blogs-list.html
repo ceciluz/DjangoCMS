@@ -4,12 +4,133 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog List</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .navbar {
+            background-color: transparent;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px;
+            z-index: 1000;
+        }
+
+        .nav-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            text-align: right;
+        }
+
+        .nav-list li {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        .nav-list li a {
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .nav-list li a:hover {
+            color: #007bff;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 80px; 
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            background-color: #fff;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        li a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            text-decoration: underline;
+        }
+
+        .blog-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .edit-btn, .delete-btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .edit-btn {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .edit-btn:hover {
+            background-color: #218838;
+        }
+
+        .delete-btn {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
 </head>
 <body>
-    <h1>List of Blogs</h1>
+    <nav class="navbar">
+        <ul class="nav-list">
+            <li><a href="/create-blog">+ New Blog</a></li>
+            <li><a href="/accounts/logout/">LOGOUT</a></li>
+        </ul>
+    </nav>
+    <h1>My Blogs</h1>
     <ul>
     {% for blog in blogs %}
-        <li><a href="{% url 'blog_detail' pk=blog.pk %}">{{ blog.title }} </a> </li>
+        <li>
+            <a href="{% url 'blog_detail' pk=blog.pk %}">{{ blog.title }}</a>
+            <div class="blog-actions">
+                <button class="edit-btn" onclick="window.location.href='{% url 'blog_update' pk=blog.pk %}'">Edit</button>
+                <form method="post" action="{% url 'blog_delete' pk=blog.pk %}">
+                    {% csrf_token %}
+                    <input type="submit" name="delete_blog" value="Delete" class="delete-btn">
+                </form>
+            </div>
+        </li>
+    {% empty %}
+        <li>No blogs found.</li>
     {% endfor %}
     </ul>
 </body>

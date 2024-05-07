@@ -1,0 +1,109 @@
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.blog-title a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.comment-count a {
+    text-decoration: none;
+    color: inherit;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.post {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.post-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.post-content {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.post-content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.comment-section {
+    margin-top: 30px;
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+}
+
+.comment-count {
+    color: #007bff;
+    font-weight: bold;
+}
+
+/* Estilos para os botões */
+button, input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+button:hover, input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.action-buttons {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.action-buttons button,
+.action-buttons a {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.action-buttons button:last-child,
+.action-buttons a:last-child {
+    margin-right: 0;
+}
+
+.comment-text {
+    text-decoration: none;
+    color: inherit; 
+}
